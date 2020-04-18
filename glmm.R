@@ -64,5 +64,8 @@ lmtest::lrtest(csi_glm_no_site, csi_glm)
 #Do a likelihood ratio test for the GLM and GLMM,
 # to see whether random effect is significant or not:
 lmtest::lrtest(csi_glm, csi_glmm)
-P. = sqrt( climhyd[,"Precip"] ) %>% ts(freq = 12)
-I. = log( climhyd[,"Inflow"] ) %>% ts(freq=12) 
+
+library(forecast)
+I.flt = Arima(I., model = out.P ) %>% resid()
+plot(I.flt)
+acf(I.flt) 
